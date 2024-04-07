@@ -192,8 +192,8 @@ except Exception as e:
     print("[Errno {0}] {1}".format(e.errno, e.strerror))
 
 """#Reverse Geo Coding"""
-
-geo_data = requests.get("https://maps.googleapis.com/maps/api/geocode/json?latlng=38.8940,-76.9501&result_type=street_address&key=AIzaSyBL3HMYx24VAogBKnp-UI9Lv1QMX5zreHE")
+#Removed API Key
+geo_data = requests.get("https://maps.googleapis.com/maps/api/geocode/json?latlng=38.8940,-76.9501&result_type=street_address&key=xxx")
 json = geo_data.json()
 print(json)
 
