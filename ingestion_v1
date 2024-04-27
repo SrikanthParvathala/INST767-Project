@@ -1,0 +1,105 @@
+import requests
+import json
+import http.client, urllib.request, urllib.parse, urllib.error, base64
+import pandas as pd
+from google.cloud import storage
+import pyarrow as pa
+import pyarrow.parquet as pq
+import pyarrow.fs as fs
+import pytz
+
+
+def api_to_gcs(url, filename):
+    
+    if("lyft" in url):
+        #Capital Bikeshare
+        data = requests.get(url)
+        json_data = data.json()
+        df = pd.json_normalize(json_data['data']['bikes'])
+        df = df[['bike_id','is_disabled','name','lon','fusion_lon','fusion_lat','lat','type','is_reserved']]
+        data_lyft = requests.get('https://gbfs.lyft.com/gbfs/1.1/dca-cabi/en/system_information.json')
+        json_data = data_lyft.json()
+
+        lyft_time_df = pd.json_normalize(json_data,meta='last_updated')
+        lyft_time_df = lyft_time_df[['last_updated','data.timezone']]
+
+        timezone = pytz.timezone(lyft_time_df['data.timezone'][0])
+        lyft_time_df['last_updated'] = pd.to_datetime(lyft_time_df['last_updated'], unit='s')
+
+        datetime_la = timezone.localize(lyft_time_df['last_updated'][0])
+        df.insert(0, 'timestamp', datetime_la)
+        df.insert(1,'service','Capital Bikeshare')
+    elif("lime" in url):
+        #lime
+        data = requests.get(url)
+        json_data = data.json()
+        timestamp = json_data["last_updated"]
+        timestamp = pd.to_datetime(timestamp, unit='s')
+
+        df = pd.json_normalize(json_data['data']['bikes'])
+        df = df[["bike_id","lat","lon","is_reserved","is_disabled","vehicle_type"]]
+        df.insert(0, 'timestamp', timestamp)
+        df.insert(1,'service','Lime')
+    elif("weather" in url):
+
+        headers = {"accept": "application/json"}
+
+        response = requests.get(url, headers=headers)
+        json_data = response.json()
+
+        df = pd.json_normalize(json_data)
+
+        df.columns = ['time', 'cloudBase', 'cloudCeiling',
+                'cloudCover', 'dewPoint',
+                'freezingRainIntensity', 'humidity',
+                'precipitationProbability',
+                'pressureSurfaceLevel', 'rainIntensity',
+                'sleetIntensity', 'snowIntensity',
+                'temperature', 'temperatureApparent',
+                'uvHealthConcern', 'uvIndex',
+                'visibility', 'weatherCode',
+                'windDirection', 'windGust',
+                'windSpeed', 'lat', 'lon',
+                'locationName', 'locationType']
+    else:
+        #wmata
+        headers = {
+            # Request headers
+            'api_key': 'd8be252fdef441d195f6856645486af4',
+        }
+
+        try:
+            conn = http.client.HTTPSConnection('api.wmata.com')
+            conn.request("GET", "/Bus.svc/json/jBusPositions" , {}, headers)
+            response = conn.getresponse()
+            
+            json_data = response.read().decode('utf-8')  
+
+            data = json.loads(json_data) 
+            df = pd.DataFrame(data['BusPositions'])
+
+        except Exception as e:
+            print("[Errno {0}] {1}".format(e.errno, e.strerror))
+
+    client = storage.Client(project='inst767-417717')
+    bucket = client.get_bucket('transit-bucket')
+    blob = bucket.blob(filename)
+    
+    path_to_file = f"gs://{bucket.name}/{filename}"
+    if not blob.exists():
+        df.to_parquet(path_to_file, index=False)  # Write initial file
+    else:
+        # Append data to existing file
+        existing_data = pd.read_parquet(path_to_file)
+        appended_data = pd.concat([existing_data, df], ignore_index=True)
+        appended_data.to_parquet(path_to_file, index=False)
+
+    
+    
+
+def main(data, context):
+#   file_system = fs.FileSystem.from_uri("gs://")
+  api_to_gcs('https://gbfs.lyft.com/gbfs/1.1/dca-cabi/en/free_bike_status.json','cbs.parquet')
+  api_to_gcs('https://data.lime.bike/api/partners/v1/gbfs/washington_dc/free_bike_status.json','lime.parquet')
+  api_to_gcs('https://api.tomorrow.io/v4/weather/realtime?location=washington%20dc&apikey=uKLdl7w0X5W8o5iCYr8K7LcnvlhvHK8A','weather.parquet')
+  api_to_gcs('wmata','wmata.parquet') #url is replaced in else block in the function
