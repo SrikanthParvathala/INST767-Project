@@ -64,8 +64,8 @@ def api_to_gcs(url, filename):
     else:
         #wmata
         headers = {
-            # Request headers
-            'api_key': 'd8be252fdef441d195f6856645486af4',
+            # Request headers - hidden for the purpose of GitHub
+            'api_key': '****',
         }
 
         try:
