@@ -1,3 +1,5 @@
+#This code fetches the data from bus stops location API. It is to be written in Cloud Functions.
+
 from google.cloud import bigquery
 import json
 
