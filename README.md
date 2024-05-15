@@ -81,8 +81,8 @@ During the Transformation Phase of the project, we employed a combination of Dat
 
 This phase consisted of three main parts:
 
-1. **Scooter Data Transformation**:
-   - In this part, we transformed the scooter data collected from various vendors and extracted static data for bus stops.
+1a. **Scooter Data Transformation**:
+   - In this part, we transformed the scooter data collected from various vendors.
    - We utilized DataProc, Cloud Functions, and Cloud Scheduler to execute the transformation tasks efficiently.
    - After completing the collection of raw data for e-scooter/e-bike services in a Google Storage bucket, the next step was to process the data using PySpark script <Scooter-Processing-Updated.py> and DataProc cluster and move it to the BigQuery table. The script’s  functionality:
         - Initializes a Spark session with a specific application name.
@@ -95,6 +95,12 @@ This phase consisted of three main parts:
 
       Deployment: Designed to be run as a standalone job, run on the DataProc cluster:
       ![image](https://github.com/SrikanthParvathala/INST767-Project/assets/22209549/44815f73-4849-4a92-9507-2fa3363a824c)
+
+1b. **Static Bus Stops Data Transformation**: [Script](Transformation/Stop-Data-Processing.py)
+   - In this part, we transformed the extracted static data for bus stops.
+   - We utilized DataProc, Cloud Functions, and Cloud Scheduler to execute the transformation tasks efficiently.
+   - After completing the extraction into a Google Storage bucket, the next step was to process the data using the script and DataProc cluster and move it to the BigQuery table.
+   - This script utilizes PySpark and Google Cloud Platform's BigQuery service to aggregate and store stops data. It first loads GTFS data from a Cloud Storage bucket, extracts relevant information about bus stops, and transforms it into a structured DataFrame. The processed data is then saved to a BigQuery table. The script is run on DataProc Cluster with an invocation of the Cloud Function. [Script](Transformation/process-scooter-data-pub.py)
 
 
 2. **Bus Positions Data Transformation**:
