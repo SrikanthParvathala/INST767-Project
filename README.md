@@ -75,6 +75,26 @@ The image illustrates the temporary storage in GCS during this phase.
 <img width="1184" alt="image" src="https://github.com/SrikanthParvathala/INST767-Project/assets/22209549/47ad2aba-c954-4bb6-a222-3cf72c896411">
 <img width="1175" alt="image" src="https://github.com/SrikanthParvathala/INST767-Project/assets/22209549/ea47d942-af8e-4f46-a433-a68b728523e4">
 
+### Transformation 
+
+During the Transformation Phase of the project, we employed a combination of DataProc, Cloud Functions, and Cloud Scheduler to process our API data and transform it into a usable format. The transformed data was then stored as tables in BigQuery (using the transformation scripts) for subsequent project phases.
+
+This phase consisted of three main parts:
+
+1. **Scooter Data Transformation**:
+   - In this part, we transformed the scooter data collected from various vendors and extracted static data for bus stops.
+   - We utilized DataProc, Cloud Functions, and Cloud Scheduler to execute the transformation tasks efficiently.
+
+2. **Bus Positions Data Transformation**:
+   - This part involved transforming the bus positions data collected using Cloud Functions and a Cloud Scheduler.
+
+3. **Geospatial Analysis**:
+   - The third part of this phase focused on performing further transformations for geospatial analysis. We achieved this using BigQuery and SQL scripts to create two aggregate tables.
+
+This phase was important to prepare our data and store it in a structured and optimized format.
+
+### Storage 
+
 #### Analysis
 
 You can find the scripts for Data Analysis in the [Analysis](https://github.com/SrikanthParvathala/INST767-Project/tree/main/Analysis) folder.
