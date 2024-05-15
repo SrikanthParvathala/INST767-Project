@@ -148,3 +148,49 @@ The details for the questions we aimed to answer for the project are as follows:
      - **Ranking_cte**: Ranks each hour within each stop based on the average number of scooters used.
      - **last_cte**: Selects the top-ranked hours for each stop to pinpoint when the highest scooter usage typically occurs.
 
+      ![image](https://github.com/SrikanthParvathala/INST767-Project/assets/22209549/09fb8bb5-abf3-4302-9001-b2c91d678fa6)
+
+       Final SELECT Statement: Aggregates the busiest hours across all stops to determine when the most scooter usage occurs on average across the network.
+
+      ![image](https://github.com/SrikanthParvathala/INST767-Project/assets/22209549/e582fcfd-6bf7-4f7d-858c-c25d9c9c093b)
+
+
+      As a whole, the final output of the script provides a list of hours during which the highest average scooter usage occurs, ranked by the total number of scooters used. This information is crucial for operational planning, such as scheduling maintenance, positioning additional scooters, and managing fleet sizes effectively to meet user demand during peak hours.
+
+**Analysis 2 - [Average Bikes At Specific Stop](Analysis/average-scooter-bikes-count-peak-hour-specific-bus-stop.sql)**
+
+   - ‘Average-scooter-bikes-count-peak-hour-specific-bus-stop’ SQL query is to analyze the availability of scooters, including electric bikes and electric scooters, at various bus stops during identified peak hours. The focus is on the hour from 6 PM to 7 PM (18:00 to 19:00), which was determined to be a peak usage time from previous analysis.
+
+   - The query calculates the average number of electric bikes, electric scooters, and the total number of scooters available at each bus stop during the specified peak hour. This data is essential for operational planning, resource allocation, and enhancing user experience by ensuring adequate availability during high-demand periods.
+     
+     ![image](https://github.com/SrikanthParvathala/INST767-Project/assets/22209549/9e223523-f664-44cd-8b00-d793f6fdcf50)
+
+**Analysis 3 - [Busies Bus Stop](https://github.com/SrikanthParvathala/INST767-Project/blob/main/Analysis/busiest-bus-stop.sql)**
+   - The query “busiest-bus-stop”  is to analyze the stop ids with the highest bus traffic. Using this query we can identify the bus stops where the frequency of buses arrived from the day we collected data is highest.
+   - The ‘DailyBusVisits’ calculates the number of unique buses that visit each stop on each date. This CTE extracts the date part from the timestamp, counts the number of unique buses (VehicleID) visiting that stop on that date, and groups the results by stop_id and date to ensure counts are calculated per stop per day.
+   - The next CTE is the ‘MaxBusVisits’, which finds the maximum number of buses visiting each stop on each date. The ‘MAX(BusCount) AS MaxBusCount’ finds the maximum number of buses that visited any stop on each date and it is grouped by stop_id and date to get the maximum count per stop per day.
+   - In the main Select query, we select distinct stop_id, date, and bus count, then we join the ‘DailyBusVisits’ and ‘MaxBusVisits’ CTEs on the date and bus count to filter out the stops with the maximum bus count for each date and order the results by date and bus count in descending order.
+   - This query produces a list of dates and stops where the maximum number of bus visits was recorded each day.
+
+     ![image](https://github.com/SrikanthParvathala/INST767-Project/assets/22209549/93210c0d-e33a-4fa7-9051-e87f3e5d174f)
+
+**Analysis 4 - [Avgerage Bikes At High Traffic Stop](https://github.com/SrikanthParvathala/INST767-Project/blob/main/Analysis/average-scooters-bikes-at-high-traffic-stops.sql)**
+   - The “average-scooters-bikes-at-high-traffic-stops” query calculates the average number of total scooters and bikes at busy bus stops.
+   - The ‘DailyBusVisits’ and the ‘MaxBusVisits’ are similar to the previous query. They identify the bus stops which are the busiest ones.
+   - The ‘HighTrafficStops’ CTE, identifies the high-traffic stops by selecting those stops that have the highest bus count on each date. ‘FROM DailyBusVisits a JOIN MaxBusVisits b ON a.Date = b.Date AND a.BusCount = b.MaxBusCount’ joins the DailyBusVisits and MaxBusVisits CTEs to filter out the stops with the maximum bus count for each date and the results are ordered in the descending order of the bus counts.
+   - The main query calculates the average number of electric scooters at high-traffic stops and selects the stop_id, bus count, and average scooter count. It selects the stop_id, bus count, and average scooter count (cast to integer). Then there is a subquery that calculates the average scooter count per stop. The ‘JOIN HighTrafficStops h ON s.stop_id = h.stop_id’ in the subquery joins the scooter data with high-traffic stops based on stop_id and groups by stop_id to calculate the average scooter count for each stop. The ‘JOIN HighTrafficStops ht ON f.stop_id = ht.stop_id’ outside the subquery joins the results of the subquery with high-traffic stops based on stop_id.
+
+     ![image](https://github.com/SrikanthParvathala/INST767-Project/assets/22209549/3cb51d2a-3dda-4324-b8a7-685e2baf1082)
+
+     Based on the results we can observe that there are not enough scooters at the stops with the highest bus count. This implies that the stops with high bus traffic need to have more scooters or bikes in order for people to make use of them during peak rush hour.
+
+
+
+
+
+     
+
+
+
+
+
