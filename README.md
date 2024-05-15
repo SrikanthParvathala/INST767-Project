@@ -211,6 +211,18 @@ The details for the questions we aimed to answer for the project are as follows:
      Based on the results we can observe that there are not enough scooters at the stops with the highest bus count. This implies that the stops with high bus traffic need to have more scooters or bikes in order for people to make use of them during peak rush hour.
 
 
+#### Next Steps for the Project
+
+- Integration of GPS and Timepoint Data: Integrate real-time GPS data of buses with static timepoint schedules. This allows for analysis of how closely buses adhere to their scheduled arrival times at designated stops.
+- Deviation Analysis: By comparing actual bus arrival times against scheduled times, calculate deviations (either early or late) from expected arrival times, assisting in evaluating the punctuality and reliability of bus services.
+- Time-based Comparison: Focus solely on the time components of arrival, disregarding the date part to simplify daily service analysis where specific dates are not impactful.
+- Aggregate Count Integration: Integrate data on per-minute aggregate counts of e-scooters and e-bikes around each bus stop. This will help in understanding the dynamics of micro-mobility usage patterns in relation to bus arrivals and departures.
+- Analysis of Mobility Patterns: Analyze how the activity of e-scooters and e-bikes fluctuates with the arrival and departure of buses. This can offer insights into how public transport connectivity impacts micro-mobility choices.
+- Enhanced Transit Planning: Use the combined data to improve transit planning and infrastructure development, ensuring that public transport and micro-mobility systems are effectively synchronized to serve urban mobility needs better.
+- Data-Driven Decision Making: Provide transit authorities and urban planners with actionable insights derived from the integrated data, helping them make informed decisions on service adjustments, stop locations, and timing optimization to enhance overall urban mobility.
+
+
+
 
 
 
