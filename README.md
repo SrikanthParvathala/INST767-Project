@@ -37,7 +37,7 @@ For both the Bus Positions API and the Scooter APIs (totaling four), we employed
 
 #### Cloud Function Scripts:
 
-You can find the scripts for Cloud Functions in the [Ingestion](https://github.com/SrikanthParvathala/INST767-Project/tree/main/Ingestion) folder.
+The scripts for Cloud Functions can be aaccesed in the [Ingestion](https://github.com/SrikanthParvathala/INST767-Project/tree/main/Ingestion) folder.
 
 1. **bus-position-fetch.py**:
    - This Python script fetches bus position data from the WMATA API and stores it in a Google Cloud Storage Bucket.
@@ -91,13 +91,14 @@ This phase consisted of three main parts:
 3. **Geospatial Analysis**:
    - The third part of this phase focused on performing further transformations for geospatial analysis. We achieved this using BigQuery and SQL scripts to create two aggregate tables.
 
-This phase was important to prepare our data and store it in a structured and optimized format.
+This phase was important to prepare our data and store it in a structured and optimized format. The scripts for this phase can be accesses in the [Transformation](https://github.com/SrikanthParvathala/INST767-Project/tree/main/Transformation) folder.
+
 
 ### Storage 
 
 #### Analysis
 
-You can find the scripts for Data Analysis in the [Analysis](https://github.com/SrikanthParvathala/INST767-Project/tree/main/Analysis) folder.
+The scripts for the Analysis phase can be accessed in the [Analysis](https://github.com/SrikanthParvathala/INST767-Project/tree/main/Analysis) folder.
 
 **Analysis 1 - [Finding rush hours](https://github.com/SrikanthParvathala/INST767-Project/blob/main/Analysis/finding-out-rush-hours.sql)**
    - This script is designed to analyze scooter usage patterns at various stops by identifying peak usage hours. It calculates the average number of scooters used during each hour of each day, determines when scooters are most frequently picked up (indicating the busiest or "rush" hours), and aggregates this information to present a broader view of peak scooter usage times across all analyzed stops.
