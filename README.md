@@ -84,6 +84,18 @@ This phase consisted of three main parts:
 1. **Scooter Data Transformation**:
    - In this part, we transformed the scooter data collected from various vendors and extracted static data for bus stops.
    - We utilized DataProc, Cloud Functions, and Cloud Scheduler to execute the transformation tasks efficiently.
+   - After completing the collection of raw data for e-scooter/e-bike services in a Google Storage bucket, the next step was to process the data using PySpark script <Scooter-Processing-Updated.py> and DataProc cluster and move it to the BigQuery table. The script’s  functionality:
+        - Initializes a Spark session with a specific application name.
+        - Loads JSON data from Google Cloud Storage, enhancing data with additional metadata including file names and timestamps.
+        - Extracts datetime information from file names and converts it into UTC and Eastern Time timestamps, accounting for daylight saving time.
+        - Transforms the data by extracting and renaming relevant columns, handling different data schemas, and mapping vehicle types.
+        - Supports processing data from multiple vendors (e.g., Capital Bikeshare, Lime, Lyft, Spin) with specific transformations for each vendor.
+        - Combines data from all sources, ensures it is distinct, and appends it to a BigQuery table.
+        - BigQuery Integration: Configures BigQuery output settings such as table name, bucket for temporary storage, and write disposition.
+
+      Deployment: Designed to be run as a standalone job, run on the DataProc cluster:
+      ![image](https://github.com/SrikanthParvathala/INST767-Project/assets/22209549/44815f73-4849-4a92-9507-2fa3363a824c)
+
 
 2. **Bus Positions Data Transformation**:
    - This part involved transforming the bus positions data collected using Cloud Functions and a Cloud Scheduler.
@@ -102,6 +114,20 @@ This phase consisted of three main parts:
 
 3. **Geospatial Analysis**:
    - The third part of this phase focused on performing further transformations for geospatial analysis. We achieved this using BigQuery and SQL scripts to create two aggregate tables.
+   - Purpose: Analyzes scooter/bike usage data relative to specific stop locations within a defined timeframe.
+   - Technologies Used: Google BigQuery SQL for querying and processing data.
+   - Functionality:
+        - Data Filtering: Utilizes a Common Table Expression (CTE) to select scooter data only within the specified date ("2024-04-18") including geographic points and time components (hour and minute).
+        - Geographical Processing: Converts longitude and latitude into geographical points for scooters and pre-defined stops.
+        - Timeframe Specification: Filters scooters based on a precise timestamp range on a specified day, ensuring the analysis is confined to the desired period.
+        - Pre-computed Stop Locations: Another CTE to fetch and convert stop location data into geographic points for subsequent spatial comparisons.
+        - Spatial Join: Joins scooter data with stop locations based on proximity, using a specified radius to determine if scooters are within 0.25 miles of a stop.
+        - Aggregation and Analysis: Aggregates scooter data by stop ID, date, hour, and minute, calculating total counts and counts by type (electric bikes and electric scooters).
+
+   Deployment: Designed to run as a one-time query (run for each day) and  is a part of a larger scheduled analysis in BigQuery with results being written and appended into the new BigQuery Table.
+   ![image](https://github.com/SrikanthParvathala/INST767-Project/assets/22209549/85ab49ff-6c4f-4bb6-8980-2ad24d22a873)
+
+
 
 This phase was important to prepare our data and store it in a structured and optimized format. The scripts for this phase can be accesses in the [Transformation](https://github.com/SrikanthParvathala/INST767-Project/tree/main/Transformation) folder.
 
