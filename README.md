@@ -99,24 +99,32 @@ Following the transformation phase, we stored our data in dedicated BigQuery tab
 <img width="453" alt="image" src="https://github.com/SrikanthParvathala/INST767-Project/assets/22209549/e4b760a2-376d-45d6-ad06-bfce7786735c">
 
 bus-position-within-stop-unique table
+
 <img width="810" alt="image" src="https://github.com/SrikanthParvathala/INST767-Project/assets/22209549/fc717550-2ff8-486c-b466-2b77adb0ffbb">
 
 scooter-count-per-stop table
+
 <img width="786" alt="image" src="https://github.com/SrikanthParvathala/INST767-Project/assets/22209549/04c0fb7c-43d4-48ff-81ad-8584ce62adf5">
 
 bus-positions table
+
 <img width="1323" alt="image" src="https://github.com/SrikanthParvathala/INST767-Project/assets/22209549/614b7168-4985-4781-a2d3-23e7ef7edb65">
 
 vehicle-usage-table table
+
 <img width="1320" alt="image" src="https://github.com/SrikanthParvathala/INST767-Project/assets/22209549/2e9d9d71-7be0-45a0-8fbd-71ea0926219d">
 
 stops-data table
+
 <img width="630" alt="image" src="https://github.com/SrikanthParvathala/INST767-Project/assets/22209549/5b3e80df-52dd-4d2e-a326-36ebee03c803">
 
 
 ### Analysis
+For the Analysis phase, we used BigQuery tables we created during the Transformation and Storage Phase. 
 
 The scripts for the Analysis phase can be accessed in the [Analysis](https://github.com/SrikanthParvathala/INST767-Project/tree/main/Analysis) folder.
+
+The details for the questions we aimed to answer for the project are as follows:
 
 **Analysis 1 - [Finding rush hours](https://github.com/SrikanthParvathala/INST767-Project/blob/main/Analysis/finding-out-rush-hours.sql)**
    - This script is designed to analyze scooter usage patterns at various stops by identifying peak usage hours. It calculates the average number of scooters used during each hour of each day, determines when scooters are most frequently picked up (indicating the busiest or "rush" hours), and aggregates this information to present a broader view of peak scooter usage times across all analyzed stops.
