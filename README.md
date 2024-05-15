@@ -75,9 +75,9 @@ The image illustrates the temporary storage in GCS during this phase.
 <img width="1184" alt="image" src="https://github.com/SrikanthParvathala/INST767-Project/assets/22209549/47ad2aba-c954-4bb6-a222-3cf72c896411">
 <img width="1175" alt="image" src="https://github.com/SrikanthParvathala/INST767-Project/assets/22209549/ea47d942-af8e-4f46-a433-a68b728523e4">
 
-#### Data Analysis
+#### Analysis
 
-You can find the scripts for Data Analysis in the [Ingestion](https://github.com/SrikanthParvathala/INST767-Project/tree/main/Analysis) folder.
+You can find the scripts for Data Analysis in the [Analysis](https://github.com/SrikanthParvathala/INST767-Project/tree/main/Analysis) folder.
 
 **Analysis 1 - [Finding rush hours](https://github.com/SrikanthParvathala/INST767-Project/blob/main/Analysis/finding-out-rush-hours.sql)**
    - This script is designed to analyze scooter usage patterns at various stops by identifying peak usage hours. It calculates the average number of scooters used during each hour of each day, determines when scooters are most frequently picked up (indicating the busiest or "rush" hours), and aggregates this information to present a broader view of peak scooter usage times across all analyzed stops.
