@@ -250,13 +250,11 @@ The details for the questions we aimed to answer for the project are as follows:
 
 
 ##### Group Members:
-Alibi Shokputov
-Ritika Namilikonda
-Sharvil Shastri
-Sravya Lenka
-Srikanth Parvathala
-
-
+- Alibi Shokputov
+- Ritika Namilikonda
+- Sharvil Shastri
+- Sravya Lenka
+- Srikanth Parvathala
      
 
 
