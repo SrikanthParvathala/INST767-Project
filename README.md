@@ -87,6 +87,18 @@ This phase consisted of three main parts:
 
 2. **Bus Positions Data Transformation**:
    - This part involved transforming the bus positions data collected using Cloud Functions and a Cloud Scheduler.
+   - The Python script(**function_bus_tranformation.py**) utilizes Google Cloud Platform services - Cloud Storage and BigQuery to process and store data for the Bus Positions API. It is invoked by a Cloud Scheduler.
+   -  The goal of the script is to parse JSON data stored in Cloud Storage from the Ingestion Step using concurrent execution for optimal performance, transforming it into Pandas DataFrames. Subsequently, the script converts these DataFrames into Parquet file format and also, uploads the dataframe to Cloud Storage. Finally, the processed data is loaded into a BigQuery table. The requirements for this script are specified in `function_bus_tranformation_requirements.txt`.
+     
+      Cloud Scheduler -
+      
+      <img width="529" alt="image" src="https://github.com/SrikanthParvathala/INST767-Project/assets/22209549/aacabcf2-6469-4863-9dfd-42db9ea6b8c8">
+      
+      Cloud Function -
+      
+      <img width="1378" alt="image" src="https://github.com/SrikanthParvathala/INST767-Project/assets/22209549/7e3f0da1-ce51-4ae2-9518-2613aa1dc6fc">
+      
+      The BigQuery table details are linked in the next step[Storage]. 
 
 3. **Geospatial Analysis**:
    - The third part of this phase focused on performing further transformations for geospatial analysis. We achieved this using BigQuery and SQL scripts to create two aggregate tables.
