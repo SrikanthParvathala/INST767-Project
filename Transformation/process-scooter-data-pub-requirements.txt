@@ -1,0 +1,5 @@
+#Function dependencies, for example:
+#package>=version
+google-cloud-dataproc>=2.0.0
+google-auth>=1.6.3
+google-api-python-client>=1.7.11
