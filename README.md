@@ -83,9 +83,9 @@ You can find the scripts for Data Analysis in the [Ingestion](https://github.com
    - This script is designed to analyze scooter usage patterns at various stops by identifying peak usage hours. It calculates the average number of scooters used during each hour of each day, determines when scooters are most frequently picked up (indicating the busiest or "rush" hours), and aggregates this information to present a broader view of peak scooter usage times across all analyzed stops.
    
    - The SQL script is divided into multiple Common Table Expressions (CTEs) that sequentially process and refine the data:
-     - 1. **get_avg_scooters_for_each_hour_and_date**: Calculates the average number of scooters available during each hour for each stop and date
-     - 2. **difference_cte**: Computes the change in scooter counts between consecutive hours to identify usage patterns.
-     - 3. **Scooters_used_per_day_1**: Averages the changes in scooter counts over different days to determine a generalized pattern of usage for each hour at each stop.
-     - 4. **Ranking_cte**: Ranks each hour within each stop based on the average number of scooters used.
-     - 5. **last_cte**: Selects the top-ranked hours for each stop to pinpoint when the highest scooter usage typically occurs.
+     - **get_avg_scooters_for_each_hour_and_date**: Calculates the average number of scooters available during each hour for each stop and date
+     - **difference_cte**: Computes the change in scooter counts between consecutive hours to identify usage patterns.
+     - **Scooters_used_per_day_1**: Averages the changes in scooter counts over different days to determine a generalized pattern of usage for each hour at each stop.
+     - **Ranking_cte**: Ranks each hour within each stop based on the average number of scooters used.
+     - **last_cte**: Selects the top-ranked hours for each stop to pinpoint when the highest scooter usage typically occurs.
 
