@@ -80,5 +80,8 @@ The image illustrates the temporary storage in GCS during this phase.
 You can find the scripts for Data Analysis in the [Ingestion](https://github.com/SrikanthParvathala/INST767-Project/tree/main/Analysis) folder.
 
 **Analysis 1 - [Finding rush hours](https://github.com/SrikanthParvathala/INST767-Project/blob/main/Analysis/finding-out-rush-hours.sql)**
-
+   - This script is designed to analyze scooter usage patterns at various stops by identifying peak usage hours. It calculates the average number of scooters used during each hour of each day, determines when scooters are most frequently picked up (indicating the busiest or "rush" hours), and aggregates this information to present a broader view of peak scooter usage times across all analyzed stops.
+   
+   - The SQL script is divided into multiple Common Table Expressions (CTEs) that sequentially process and refine the data:
+   - 
 
