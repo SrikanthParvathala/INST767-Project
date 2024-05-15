@@ -71,4 +71,10 @@ The image illustrates the Cloud Functions utilized during this phase.
 #### Cloud Storage 
 The image illustrates the temporary storage in GCS during this phase.
 <img width="1433" alt="image" src="https://github.com/SrikanthParvathala/INST767-Project/assets/22209549/940d9046-c8a5-4db3-a623-2e5d60a183ba">
+<img width="1172" alt="image" src="https://github.com/SrikanthParvathala/INST767-Project/assets/22209549/34f77382-f1d2-494b-bf25-550942d3fdb9">
+<img width="1184" alt="image" src="https://github.com/SrikanthParvathala/INST767-Project/assets/22209549/47ad2aba-c954-4bb6-a222-3cf72c896411">
+<img width="1175" alt="image" src="https://github.com/SrikanthParvathala/INST767-Project/assets/22209549/ea47d942-af8e-4f46-a433-a68b728523e4">
+
+
+
 
