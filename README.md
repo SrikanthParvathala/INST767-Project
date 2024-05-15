@@ -21,8 +21,54 @@ Our project aims to analyze demand patterns for e-scooters and bike-share servic
 The project is organized into separate folders for each phase:
 
 1. **Ingestion**: Data ingestion phase, where Cloud Scheduler, Cloud Functions, and Cloud Storage are utilized for temporary storage.
-2. **Transformation**: Data transformation phase.
-3. **Storage**: Data storage phase.
-4. **Analysis**: Data analysis phase.
+2. **Transformation**: Data transformation phase using DataProc, Cloud Functions and Cloud Scheduler.
+3. **Storage**: Data storage phase using BigQuery.
+4. **Analysis**: Data analysis phase using BigQuery.
 
 Each folder contains specific scripts and resources related to its respective phase. Additionally, there's a separate folder for version1, which was initially considered but not used in the final project.
+
+### Ingestion Phase
+
+During the Ingestion Phase, we utilized Cloud Scheduler, Cloud Functions, and Cloud Storage for API retrieval and temporary storage purposes.
+
+#### Cloud Scheduler and Cloud Functions Setup:
+
+For both the Bus Positions API and the Scooter APIs (totaling four), we employed one Cloud Scheduler and one Cloud Function each. These Cloud Schedulers were configured to execute every minute, ensuring regular data retrieval. The raw data retrieved from the APIs was stored in Cloud Storage buckets in JSON format. This stored data served as the foundation for subsequent phases of the project.
+
+#### Cloud Function Scripts:
+
+You can find the scripts for Cloud Functions in the [Ingestion](https://github.com/SrikanthParvathala/INST767-Project/tree/main/Ingestion) folder.
+
+1. **bus-position-fetch.py**:
+   - This Python script fetches bus position data from the WMATA API and stores it in a Google Cloud Storage Bucket.
+   - It utilizes the Cloud Functions framework to trigger the function in response to Cloud Scheduler.
+   - The requirements for this Cloud function are specified in `bus-position-fetch-dependencies.txt`.
+
+2. **gtfs-static-data-fetch.py**:
+   - This Python script retrieves GTFS static data from WMATA's API and uploads it to a Google Cloud Storage Bucket.
+   - The fetched data is then saved to GCS.
+   - The requirements for this Cloud function are specified in `gtfs-static-data-fetch-dependencies.txt`.
+
+3. **scooter-api-fetch.py**:
+   - This Python script fetches scooter data from multiple APIs (mentioned above) and stores it in Google Cloud Storage.
+   - The requirements for this Cloud function are specified in `scooter-api-fetch-dependencies.txt`.
+
+4. **unzipping-gtfs-files.py**:
+   - This script downloads a GTFS zip file from Google Cloud Storage, extracts its contents, and uploads them back to GCS.
+   - The requirements for this Cloud function are specified in `unzipping-gtfs-files-dependencies.txt`.
+
+These scripts automate the process of fetching, and temporary storage from various APIs, facilitating seamless data ingestion into the project pipeline.
+
+#### Cloud Scheduler  
+The image illustrates the Cloud Schedulers utilized during this phase.
+<img width="1431" alt="image" src="https://github.com/SrikanthParvathala/INST767-Project/assets/22209549/0d3e10aa-dc80-49e7-aa0b-abd6bd4306a2">
+
+
+#### Cloud Functions
+The image illustrates the Cloud Functions utilized during this phase.
+![image](https://github.com/SrikanthParvathala/INST767-Project/assets/22209549/e269f99f-18f1-4d53-ad22-defe5544bc2d)
+
+#### Cloud Storage 
+The image illustrates the temporary storage in GCS during this phase.
+<img width="1433" alt="image" src="https://github.com/SrikanthParvathala/INST767-Project/assets/22209549/940d9046-c8a5-4db3-a623-2e5d60a183ba">
+
