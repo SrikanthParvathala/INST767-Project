@@ -75,6 +75,10 @@ The image illustrates the temporary storage in GCS during this phase.
 <img width="1184" alt="image" src="https://github.com/SrikanthParvathala/INST767-Project/assets/22209549/47ad2aba-c954-4bb6-a222-3cf72c896411">
 <img width="1175" alt="image" src="https://github.com/SrikanthParvathala/INST767-Project/assets/22209549/ea47d942-af8e-4f46-a433-a68b728523e4">
 
+#### Data Analysis
 
+You can find the scripts for Data Analysis in the [Ingestion](https://github.com/SrikanthParvathala/INST767-Project/tree/main/Analysis) folder.
+
+**Analysis 1 - [Finding rush hours](https://github.com/SrikanthParvathala/INST767-Project/blob/main/Analysis/finding-out-rush-hours.sql)**
 
 
