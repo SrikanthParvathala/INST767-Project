@@ -3,6 +3,11 @@
 #### Project Overview:
 Our project aims to analyze demand patterns for e-scooters and bike-share services in coordination with local transportation systems, focusing on the Washington, DC area. To achieve this goal, we have curated APIs from various e-scooter providers and bus transportation services.
 
+The process flow depicted below illustrates the pipeline for our project.
+
+
+![image](https://github.com/SrikanthParvathala/INST767-Project/assets/119986184/e6ac57b5-076b-4a69-9d33-91c2c52a85a2)
+
 #### APIs Used:
 1. **Scooter/Bike Services APIs**: [API](https://ddot.dc.gov/page/dockless-api):
    Provides information about scooter and bike availability.
@@ -10,7 +15,7 @@ Our project aims to analyze demand patterns for e-scooters and bike-share servic
    - Lyft: [Free Bike Status](https://gbfs.lyft.com/gbfs/1.1/dca-cabi/en/free_bike_status.json)
    - Lime: [Free Bike Status](https://data.lime.bike/api/partners/v1/gbfs/washington_dc/free_bike_status.json)
    - Spin: [Free Bike Status](https://gbfs.spin.pm/api/gbfs/v1/washington_dc/free_bike_status)
-   - Lyft (AWS): [Free Bike Status](https://s3.amazonaws.com/lyft-lastmile-production-iad/lbs/dca/free_bike_status.json)
+   - Capital Bike Share: [Free Bike Status](https://s3.amazonaws.com/lyft-lastmile-production-iad/lbs/dca/free_bike_status.json)
 
 4. **Washington DC Transportation APIs**:
    - WMATA (Washington Metropolitan Area Transit Authority):
@@ -21,9 +26,9 @@ Our project aims to analyze demand patterns for e-scooters and bike-share servic
 The project is organized into separate folders for each phase:
 
 1. **Ingestion**: Data ingestion phase, where Cloud Scheduler, Cloud Functions, and Cloud Storage are utilized for temporary storage.
-2. **Transformation**: Data transformation phase using DataProc, Cloud Functions and Cloud Scheduler.
+2. **Transformation**: Data transformation phase using DataProc, Cloud Functions, Cloud Scheduler and BigQuery.
 3. **Storage**: Data storage phase using BigQuery.
-4. **Analysis**: Data analysis phase using BigQuery.
+4. **Analysis**: Data analysis phase using BigQuery and visualization using Looker.
 
 Each folder contains specific scripts and resources related to its respective phase. Additionally, there's a separate folder for version1, which was initially considered but not used in the final project.
 
@@ -164,7 +169,7 @@ stops-data table
 
 
 ### Analysis
-For the Analysis phase, we used BigQuery tables we created during the Transformation and Storage Phase. 
+For the Analysis phase, we analysed data from BigQuery tables we created during the Transformation and Storage Phase and also vizualized it in Looker. 
 
 The scripts for the Analysis phase can be accessed in the [Analysis](https://github.com/SrikanthParvathala/INST767-Project/tree/main/Analysis) folder.
 
@@ -180,22 +185,32 @@ The details for the questions we aimed to answer for the project are as follows:
      - **Ranking_cte**: Ranks each hour within each stop based on the average number of scooters used.
      - **last_cte**: Selects the top-ranked hours for each stop to pinpoint when the highest scooter usage typically occurs.
 
-      ![image](https://github.com/SrikanthParvathala/INST767-Project/assets/22209549/09fb8bb5-abf3-4302-9001-b2c91d678fa6)
+
+      ![image](https://github.com/SrikanthParvathala/INST767-Project/assets/119986184/e7814a97-7921-4096-9c5e-927d9b3c2dd5)
+
+
 
        Final SELECT Statement: Aggregates the busiest hours across all stops to determine when the most scooter usage occurs on average across the network.
 
-      ![image](https://github.com/SrikanthParvathala/INST767-Project/assets/22209549/e582fcfd-6bf7-4f7d-858c-c25d9c9c093b)
+      ![image](https://github.com/SrikanthParvathala/INST767-Project/assets/119986184/885d5b01-db0d-41f1-b1ed-da0d9051e880)
+
+
 
 
       As a whole, the final output of the script provides a list of hours during which the highest average scooter usage occurs, ranked by the total number of scooters used. This information is crucial for operational planning, such as scheduling maintenance, positioning additional scooters, and managing fleet sizes effectively to meet user demand during peak hours.
 
-**Analysis 2 - [Average Bikes At Specific Stop](Analysis/average-scooter-bikes-count-peak-hour-specific-bus-stop.sql)**
+**Analysis 2 - [Average count of scooters and bikes at specific stop](Analysis/average-scooter-bikes-count-peak-hour-specific-bus-stop.sql)**
 
    - ‘Average-scooter-bikes-count-peak-hour-specific-bus-stop’ SQL query is to analyze the availability of scooters, including electric bikes and electric scooters, at various bus stops during identified peak hours. The focus is on the hour from 6 PM to 7 PM (18:00 to 19:00), which was determined to be a peak usage time from previous analysis.
 
    - The query calculates the average number of electric bikes, electric scooters, and the total number of scooters available at each bus stop during the specified peak hour. This data is essential for operational planning, resource allocation, and enhancing user experience by ensuring adequate availability during high-demand periods.
      
      ![image](https://github.com/SrikanthParvathala/INST767-Project/assets/22209549/9e223523-f664-44cd-8b00-d793f6fdcf50)
+     
+     ![WhatsApp Image 2024-05-15 at 16 39 04](https://github.com/SrikanthParvathala/INST767-Project/assets/119986184/3c8f8ee4-6c76-418d-9b89-d49f210028da)
+
+
+
 
 **Analysis 3 - [Busies Bus Stop](https://github.com/SrikanthParvathala/INST767-Project/blob/main/Analysis/busiest-bus-stop.sql)**
    - The query “busiest-bus-stop”  is to analyze the stop ids with the highest bus traffic. Using this query we can identify the bus stops where the frequency of buses arrived from the day we collected data is highest.
@@ -205,12 +220,16 @@ The details for the questions we aimed to answer for the project are as follows:
    - This query produces a list of dates and stops where the maximum number of bus visits was recorded each day.
 
      ![image](https://github.com/SrikanthParvathala/INST767-Project/assets/22209549/93210c0d-e33a-4fa7-9051-e87f3e5d174f)
+     
+     ![image](https://github.com/SrikanthParvathala/INST767-Project/assets/119986184/f23e5a3b-6805-4391-87ff-4c046c19838f)
+
+
 
 **Analysis 4 - [Avgerage Bikes At High Traffic Stop](https://github.com/SrikanthParvathala/INST767-Project/blob/main/Analysis/average-scooters-bikes-at-high-traffic-stops.sql)**
    - The “average-scooters-bikes-at-high-traffic-stops” query calculates the average number of total scooters and bikes at busy bus stops.
    - The ‘DailyBusVisits’ and the ‘MaxBusVisits’ are similar to the previous query. They identify the bus stops which are the busiest ones.
    - The ‘HighTrafficStops’ CTE, identifies the high-traffic stops by selecting those stops that have the highest bus count on each date. ‘FROM DailyBusVisits a JOIN MaxBusVisits b ON a.Date = b.Date AND a.BusCount = b.MaxBusCount’ joins the DailyBusVisits and MaxBusVisits CTEs to filter out the stops with the maximum bus count for each date and the results are ordered in the descending order of the bus counts.
-   - The main query calculates the average number of electric scooters at high-traffic stops and selects the stop_id, bus count, and average scooter count. It selects the stop_id, bus count, and average scooter count (cast to integer). Then there is a subquery that calculates the average scooter count per stop. The ‘JOIN HighTrafficStops h ON s.stop_id = h.stop_id’ in the subquery joins the scooter data with high-traffic stops based on stop_id and groups by stop_id to calculate the average scooter count for each stop. The ‘JOIN HighTrafficStops ht ON f.stop_id = ht.stop_id’ outside the subquery joins the results of the subquery with high-traffic stops based on stop_id.
+   - The main query calculates the average number of electric scooters at high-traffic stops and selects the stop_id, bus count, and average scooter count.
 
      ![image](https://github.com/SrikanthParvathala/INST767-Project/assets/22209549/3cb51d2a-3dda-4324-b8a7-685e2baf1082)
 
